@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dayjs": "^1.10.4",
     "netlify-lambda": "^2.0.3",
     "scrape-it": "^5.3.1"
   }
