@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "netlify-lambda": "^2.0.3"
+    "netlify-lambda": "^2.0.3",
+    "scrape-it": "^5.3.1"
   }
 }
