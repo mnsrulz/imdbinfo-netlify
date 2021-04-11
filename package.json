@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "netlify-lambda build app",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start:lambda": "netlify-lambda serve app",
     "postinstall": "netlify-lambda install"
   },
   "author": "",
