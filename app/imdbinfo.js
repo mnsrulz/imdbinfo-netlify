@@ -16,7 +16,7 @@ export async function handler(event, context) {
         const duration = (jsonResponse.duration && dayjs.duration(jsonResponse.duration).format('HH:mm')) || '';
         const dataToReturn = {
             imdbId,
-            rating: jsonResponse.aggregateRating?.ratingValue,
+            rating: `${jsonResponse.aggregateRating?.ratingValue}`,
             duration,
             raw: jsonResponse
         }
