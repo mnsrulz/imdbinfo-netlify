@@ -1,8 +1,15 @@
 import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
-
+const map = new Map<string, object>();
 export default async function handler(req: Request) {
     const imdbId = new URL(req.url).pathname.split('/').pop();
     if (!imdbId) return Response.json({ error: "Bad Request! Must provide imdbId in the path e.g. https://imdbinfoapi.netlify.app/tt20913276" }, { status: 400 });
+
+    if (map.get(imdbId)) return Response.json(map.get(imdbId), {
+        headers: {
+            'cache-control': 'public, s-maxage=3600'
+        }
+    });
+
     const resp = await fetch(`https://www.imdb.com/title/${imdbId}`);
 
     if (resp.ok) {
@@ -17,7 +24,12 @@ export default async function handler(req: Request) {
             duration,
             raw: jsonResponse
         }
-        return Response.json(dataToReturn);
+        map.set(imdbId, dataToReturn);
+        return Response.json(dataToReturn, {
+            headers: {
+                'cache-control': 'public, s-maxage=3600'
+            }
+        });
     } else {
         return Response.json({ error: "Bad Request" }, {
             status: 400
@@ -27,4 +39,5 @@ export default async function handler(req: Request) {
 
 export const config = {
     path: "/*",
+    cache: "manual",
 };
