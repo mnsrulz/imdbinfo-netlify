@@ -7,7 +7,7 @@ export default async function handler(req: Request) {
     if (map.get(imdbId)) return Response.json(map.get(imdbId), {
         headers: {
             'cache-control': 'public, s-maxage=3600',
-            'Allow-Access-Control-Origin': '*'
+            'Access-Control-Allow-Origin': '*'
         }
     });
 
@@ -29,7 +29,7 @@ export default async function handler(req: Request) {
         return Response.json(dataToReturn, {
             headers: {
                 'cache-control': 'public, s-maxage=3600',
-                'Allow-Access-Control-Origin': '*'
+                'Access-Control-Allow-Origin': '*'
             }
         });
     } else {
@@ -37,7 +37,7 @@ export default async function handler(req: Request) {
             status: 400,
             headers: {
                 'cache-control': 'public, s-maxage=3600',
-                'Allow-Access-Control-Origin': '*'
+                'Access-Control-Allow-Origin': '*'
             }
         });
     }
