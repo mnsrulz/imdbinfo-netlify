@@ -6,7 +6,8 @@ export default async function handler(req: Request) {
 
     if (map.get(imdbId)) return Response.json(map.get(imdbId), {
         headers: {
-            'cache-control': 'public, s-maxage=3600'
+            'cache-control': 'public, s-maxage=3600',
+            'Allow-Access-Control-Origin': '*'
         }
     });
 
@@ -27,12 +28,17 @@ export default async function handler(req: Request) {
         map.set(imdbId, dataToReturn);
         return Response.json(dataToReturn, {
             headers: {
-                'cache-control': 'public, s-maxage=3600'
+                'cache-control': 'public, s-maxage=3600',
+                'Allow-Access-Control-Origin': '*'
             }
         });
     } else {
         return Response.json({ error: "Bad Request" }, {
-            status: 400
+            status: 400,
+            headers: {
+                'cache-control': 'public, s-maxage=3600',
+                'Allow-Access-Control-Origin': '*'
+            }
         });
     }
 }
