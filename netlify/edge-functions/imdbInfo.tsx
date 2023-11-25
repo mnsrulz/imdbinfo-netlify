@@ -1,5 +1,6 @@
 import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
 const map = new Map<string, object>();
+const parser = new DOMParser();
 export default async function handler(req: Request) {
     const imdbId = new URL(req.url).pathname.split('/').pop();
     if (!imdbId) return Response.json({ error: "Bad Request! Must provide imdbId in the path e.g. https://imdbinfoapi.netlify.app/tt20913276" }, { status: 400 });
@@ -15,7 +16,7 @@ export default async function handler(req: Request) {
 
     if (resp.ok) {
         const htmlContent = await resp.text();
-        const document = new DOMParser().parseFromString(htmlContent, "text/html");
+        const document = parser.parseFromString(htmlContent, "text/html");
         const scriptJsonElement = document.querySelector('script[type="application/ld+json"]')
         const jsonResponse = JSON.parse(scriptJsonElement.innerHTML);
         const duration = jsonResponse.duration?.replace(/PT(\d+)H(\d+)M/, "$1:$2") || '';
